@@ -21,14 +21,22 @@ for _ in range(2):
     computer_cards.append(deal_card())
 
 
-def calculate_score(cards_list):
-    return cards_list
+def calculate_score(cards):
+    # if 11 in cards and 10 in cards and len(cards) == 2:
+    if sum(cards) == 21 and len(cards) == 2:
+        return 0
+
+    if 11 in cards and sum(cards) > 21:
+        cards.remove(11)
+        cards.append(1)
+        
+    return sum(cards)
 
 
 while if_play:
     play_yes_or_no = input("Do you want to play a game of Blackjack? Tpe 'y' or 'n': ")
     if play_yes_or_no == 'y':
         print(logo)
-       
+
 
 
