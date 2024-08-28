@@ -1,8 +1,6 @@
 import random
 from art import logo
 
-if_play = True
-
 
 def deal_card():
     """Returns a random card from the deck"""
@@ -11,17 +9,8 @@ def deal_card():
     return single_card
 
 
-user_cards = []
-computer_cards = []
-
-for _ in range(2):
-    new_card = deal_card()
-    user_cards.append(new_card)
-    # user_cards.append(deal_card())
-    computer_cards.append(deal_card())
-
-
 def calculate_score(cards):
+    """Take a list of cards and return the score calculated from the cards"""
     # if 11 in cards and 10 in cards and len(cards) == 2:
     if sum(cards) == 21 and len(cards) == 2:
         return 0
@@ -29,14 +18,37 @@ def calculate_score(cards):
     if 11 in cards and sum(cards) > 21:
         cards.remove(11)
         cards.append(1)
-        
+
     return sum(cards)
 
 
-while if_play:
-    play_yes_or_no = input("Do you want to play a game of Blackjack? Tpe 'y' or 'n': ")
-    if play_yes_or_no == 'y':
-        print(logo)
+user_cards = []
+computer_cards = []
+computer_score = -1
+user_score = -1
+is_game_over = False
 
+for _ in range(2):
+    new_card = deal_card()
+    user_cards.append(new_card)
+    # user_cards.append(deal_card())
+    computer_cards.append(deal_card())
 
+while not is_game_over:
+    user_score = calculate_score(user_cards)
+    computer_score = calculate_score(computer_cards)
+    print(f"Your cards: {user_cards}, current score: {user_score}")
+    print(f"Computer's first card: {computer_cards[0]}")
 
+    if user_score == 0 or computer_score == 0 or user_score > 21:
+        is_game_over = True
+    else:
+        user_should_deal = input("Type 'y' to get another card, type 'n' to pass: ")
+        if user_should_deal == 'y':
+            user_cards.append(deal_card())
+        else:
+            is_game_over = True
+
+while computer_score != 0 and computer_score < 17:
+    computer_cards.append(deal_card())
+    computer_score = calculate_score(computer_cards)
