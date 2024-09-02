@@ -1,3 +1,10 @@
+# print report on resources
+# check resources
+# process coins
+# check transactions successfully
+# make coffee
+
+
 MENU = {
     "espresso": {
         "ingredients": {
